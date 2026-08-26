@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 300" font-family="Georgia, 'Times New Roman', serif">
+  <title>Real-time detection pipeline: ltpc-trigger hybrid</title>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#16161A"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1360" height="300" fill="#F7F5F1"/>
+
+  <text x="30" y="34" font-size="21" font-weight="600" fill="#16161A">Real-time detection pipeline</text>
+  <text x="30" y="54" font-size="12.5" font-family="'Courier New', monospace" fill="#6B675F">ltpc-as-trigger hybrid -- BUGS.md DEC-5</text>
+
+  <!-- Box template: 190 wide x 92 tall, top y=110 -->
+  <!-- 1: Upstox WebSocket -->
+  <g>
+    <rect x="30" y="110" width="190" height="92" fill="#F7F5F1" stroke="#16161A" stroke-width="1.5"/>
+    <text x="125" y="145" font-size="15" font-weight="600" fill="#16161A" text-anchor="middle">Upstox</text>
+    <text x="125" y="163" font-size="15" font-weight="600" fill="#16161A" text-anchor="middle">WebSocket</text>
+    <text x="125" y="185" font-size="11.5" font-family="'Courier New', monospace" fill="#C4622D" text-anchor="middle">ltpc mode -- trigger only</text>
+  </g>
+  <text x="255" y="103" font-size="11.5" font-family="'Courier New', monospace" fill="#6B675F" text-anchor="middle">any tick</text>
+  <line x1="220" y1="156" x2="288" y2="156" stroke="#16161A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 2: Debounce -->
+  <g>
+    <rect x="290" y="110" width="190" height="92" fill="#F7F5F1" stroke="#16161A" stroke-width="1.5"/>
+    <text x="385" y="152" font-size="15" font-weight="600" fill="#16161A" text-anchor="middle">Debounce</text>
+    <text x="385" y="175" font-size="11.5" font-family="'Courier New', monospace" fill="#6B675F" text-anchor="middle">2s per (underlying,</text>
+    <text x="385" y="190" font-size="11.5" font-family="'Courier New', monospace" fill="#6B675F" text-anchor="middle">expiry)</text>
+  </g>
+  <line x1="480" y1="156" x2="548" y2="156" stroke="#16161A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 3: REST fetch -->
+  <g>
+    <rect x="550" y="110" width="190" height="92" fill="#F7F5F1" stroke="#16161A" stroke-width="1.5"/>
+    <text x="645" y="145" font-size="14" font-weight="600" fill="#16161A" text-anchor="middle" font-family="'Courier New', monospace">REST /option/chain</text>
+    <text x="645" y="175" font-size="11.5" fill="#6B675F" text-anchor="middle">real, executable</text>
+    <text x="645" y="190" font-size="11.5" fill="#6B675F" text-anchor="middle">bid / ask</text>
+  </g>
+  <line x1="740" y1="156" x2="808" y2="156" stroke="#16161A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 4: Checks -->
+  <g>
+    <rect x="810" y="110" width="190" height="92" fill="#F7F5F1" stroke="#16161A" stroke-width="1.5"/>
+    <text x="905" y="145" font-size="15" font-weight="600" fill="#16161A" text-anchor="middle">No-arbitrage</text>
+    <text x="905" y="163" font-size="15" font-weight="600" fill="#16161A" text-anchor="middle">checks</text>
+    <text x="905" y="185" font-size="11" font-family="'Courier New', monospace" fill="#6B675F" text-anchor="middle">parity . vertical . convexity</text>
+  </g>
+
+  <!-- turn down then right to DB -->
+  <line x1="905" y1="202" x2="905" y2="240" stroke="#16161A" stroke-width="1.5"/>
+  <line x1="905" y1="240" x2="700" y2="240" stroke="#16161A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 5: SQLite -->
+  <g>
+    <rect x="510" y="212" width="190" height="66" fill="#F7F5F1" stroke="#C4622D" stroke-width="1.5"/>
+    <text x="605" y="240" font-size="14" font-weight="600" fill="#16161A" text-anchor="middle" font-family="'Courier New', monospace">violations_db.py</text>
+    <text x="605" y="258" font-size="11" fill="#6B675F" text-anchor="middle">SQLite, WAL mode</text>
+  </g>
+  <line x1="505" y1="245" x2="443" y2="245" stroke="#16161A" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- 6: Dashboard -->
+  <g>
+    <rect x="245" y="212" width="195" height="66" fill="#F7F5F1" stroke="#16161A" stroke-width="1.5"/>
+    <text x="342" y="238" font-size="14" font-weight="600" fill="#16161A" text-anchor="middle">Streamlit dashboard</text>
+    <text x="342" y="257" font-size="11" fill="#6B675F" text-anchor="middle">read-only consumer</text>
+  </g>
+
+  <text x="30" y="292" font-size="11.5" font-family="'Courier New', monospace" fill="#6B675F">Checks always run against the REST snapshot's real bid/ask -- never against the WebSocket trigger's last-traded price.</text>
+</svg>

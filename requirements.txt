@@ -1,0 +1,9 @@
+requests
+websockets
+pandas
+python-dotenv
+pytest
+matplotlib
+scipy
+cryptography
+streamlit

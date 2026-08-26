@@ -1,0 +1,35 @@
+# secrets
+.env
+
+# python
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# data
+data/*.db
+data/*.db-wal
+data/*.db-shm
+data/*.sqlite
+data/*.log
+
+# notebooks
+.ipynb_checkpoints/
+
+# os
+.DS_Store
+
+# separate project, kept out of this repo intentionally -- will be its own repo
+information_diffusion_model/
+
+# archived Kalshi-phase source code -- kept locally for its own history/lessons,
+# not part of the public NSE-options repo
+src/data/kalshi_archive/
+src/models/kalshi_archive/
+tests/kalshi_archive/
+
+# internal planning docs -- not part of the public repo
+ROADMAP.md
+FOUNDATIONS.md
+INTERVIEW_PREP.md
